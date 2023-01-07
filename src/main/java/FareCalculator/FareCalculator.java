@@ -1,5 +1,8 @@
 package FareCalculator;
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -31,9 +34,10 @@ public class FareCalculator {
     private JMenuItem yellow;
     
     private JLabel departLabel;
-    private JComboBox departCombo;
-    
-    
+    private JLabel provinceLabel;
+    private JComboBox<String> departCombo;
+    private JComboBox<String> departProvinceCombo;
+
     private JLabel Class;
     private JCheckBox economy;
     private JCheckBox AC;
@@ -50,6 +54,8 @@ public class FareCalculator {
     private JLabel totalFare;
     private JTextField totalFareText;
 
+ // Map that stores the provinces and the cities in each province
+    private Map<String, List<String>> provinces;
     
     public static void main(String[] args) {
         
@@ -58,6 +64,10 @@ public class FareCalculator {
     }
     
     public FareCalculator () {
+    	provinces = new HashMap<>();
+        provinces.put("Punjab", Arrays.asList("Lahore", "Faisalabad", "Multan"));
+        provinces.put("Sindh", Arrays.asList("Karachi", "Hyderabad", "Sukkur"));
+        provinces.put("Khyber Pakhtunkhwa", Arrays.asList("Peshawar", "Mardan", "Abbottabad"));
         
         frame = new JFrame ("Fare Calculator");
         frame.setLayout(new GridLayout(0, 1));
@@ -110,10 +120,27 @@ public class FareCalculator {
         });
         
         departLabel = new JLabel("Departure City: ");
-        departCombo = new JComboBox();
-        departCombo.addItem("Lahore");
-        departCombo.addItem("Peshawar");
+        provinceLabel = new JLabel("Province: ");
+        departCombo = new JComboBox<>();
+        departProvinceCombo = new JComboBox<>();
         
+        // Add the provinces to the province combo box
+        for (String province : provinces.keySet()) {
+            departProvinceCombo.addItem(province);
+        }
+        
+        // Add the cities in the selected province to the city combo box
+        departProvinceCombo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedProvince = (String) departProvinceCombo.getSelectedItem();
+                List<String> cities = provinces.get(selectedProvince);
+                departCombo.removeAllItems();
+                for (String city : cities) {
+                    departCombo.addItem(city);
+                }
+            }
+        });
         Class = new JLabel("Class");
         economy = new JCheckBox("Economy");
         AC = new JCheckBox("AC");
@@ -191,7 +218,309 @@ public class FareCalculator {
                         file.close();
                         }
                         
-                        else if (departCombo.getSelectedItem() == "Peshawar" ) {
+                        else if (departCombo.getSelectedItem() == "Faisalabad" ) {
+                            if (arrCombo.getSelectedItem() == "Islamabad") {
+                                eco = 500;
+                                acClass = 1000;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Gujranwala") {
+                                eco = 600;
+                                acClass = 1500;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Faisalabad") {
+                                eco = 700;
+                                acClass = 200;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                        FileWriter file = new FileWriter("output.txt");
+                        file.write(totalFareText.getText());
+                        file.close();
+                        }
+                        else if (departCombo.getSelectedItem() == "Multan" ) {
+                            if (arrCombo.getSelectedItem() == "Islamabad") {
+                                eco = 500;
+                                acClass = 1000;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Gujranwala") {
+                                eco = 600;
+                                acClass = 1500;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Faisalabad") {
+                                eco = 700;
+                                acClass = 200;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                        FileWriter file = new FileWriter("output.txt");
+                        file.write(totalFareText.getText());
+                        file.close();
+                        }  else if (departCombo.getSelectedItem() == "Karachi" ) {
+                            if (arrCombo.getSelectedItem() == "Islamabad") {
+                                eco = 500;
+                                acClass = 1000;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Gujranwala") {
+                                eco = 600;
+                                acClass = 1500;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Faisalabad") {
+                                eco = 700;
+                                acClass = 200;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                        FileWriter file = new FileWriter("output.txt");
+                        file.write(totalFareText.getText());
+                        file.close();
+                        }  else if (departCombo.getSelectedItem() == "Hyderabad" ) {
+                            if (arrCombo.getSelectedItem() == "Islamabad") {
+                                eco = 500;
+                                acClass = 1000;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Gujranwala") {
+                                eco = 600;
+                                acClass = 1500;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Faisalabad") {
+                                eco = 700;
+                                acClass = 200;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                        FileWriter file = new FileWriter("output.txt");
+                        file.write(totalFareText.getText());
+                        file.close();
+                        }  else if (departCombo.getSelectedItem() == "Sukkur" ) {
+                            if (arrCombo.getSelectedItem() == "Islamabad") {
+                                eco = 500;
+                                acClass = 1000;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Gujranwala") {
+                                eco = 600;
+                                acClass = 1500;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Faisalabad") {
+                                eco = 700;
+                                acClass = 200;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                        FileWriter file = new FileWriter("output.txt");
+                        file.write(totalFareText.getText());
+                        file.close();
+                        }  else if (departCombo.getSelectedItem() == "Peshawar" ) {
+                            if (arrCombo.getSelectedItem() == "Islamabad") {
+                                eco = 500;
+                                acClass = 1000;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Gujranwala") {
+                                eco = 600;
+                                acClass = 1500;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Faisalabad") {
+                                eco = 700;
+                                acClass = 200;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                        FileWriter file = new FileWriter("output.txt");
+                        file.write(totalFareText.getText());
+                        file.close();
+                        }  else if (departCombo.getSelectedItem() == "Mardan" ) {
+                            if (arrCombo.getSelectedItem() == "Islamabad") {
+                                eco = 500;
+                                acClass = 1000;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Gujranwala") {
+                                eco = 600;
+                                acClass = 1500;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                            else if (arrCombo.getSelectedItem() == "Faisalabad") {
+                                eco = 700;
+                                acClass = 200;
+                                if (economy.isSelected()) {
+                                    totalFareText.setText(String.format("%d", eco*seatNum));
+                                }
+                                else if (AC.isSelected()) {
+                                    totalFareText.setText(String.format("%d", acClass*seatNum));
+                                }
+                                else {
+                                    totalFareText.setText("missing input. Try Again");
+                                }
+                            }
+                        FileWriter file = new FileWriter("output.txt");
+                        file.write(totalFareText.getText());
+                        file.close();
+                        }  else if (departCombo.getSelectedItem() == "Abbottabad" ) {
                             if (arrCombo.getSelectedItem() == "Islamabad") {
                                 eco = 500;
                                 acClass = 1000;
@@ -253,8 +582,11 @@ public class FareCalculator {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 0, 30));
         panel3.setBorder(BorderFactory.createEmptyBorder(30, 30, 0, 30));
         panel.setLayout(grdLayout);
+        panel.add(provinceLabel);
+        panel.add(departProvinceCombo);
         panel.add(departLabel);
         panel.add(departCombo);
+     
         panel1.add(Class);
         panel1.add(economy);
         panel1.add(AC);
